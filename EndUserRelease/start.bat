@@ -1,0 +1,1 @@
+nVLC_Demo_WPF_D3DImage D:\유틸리티\opencv-3.4.5\opencv-3.4.5\samples\data
