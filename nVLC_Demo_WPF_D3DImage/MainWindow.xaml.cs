@@ -70,9 +70,35 @@ namespace nVLC_Demo_WPF_D3DImage
 
             slider2.Value = m_player.Volume;
 
-            MyListView.MouseDoubleClick += MyListView_MouseDoubleClick;
+            DeleteFile.Click += DeleteFile_Click;
+            DeleteAllFile.Click += DeleteAllFile_Click;
+            MyListView.MouseDoubleClick += MyListView_MouseDoubleClick;            
             UpdateListView();
 
+        }
+
+        private void DeleteAllFile_Click(object sender, RoutedEventArgs e)
+        {
+            string dirPath = ((App)Application.Current).DirPath;
+            string[] array = Directory.GetFiles(dirPath, "*.AVI");
+
+            m_myListViewItems = new List<MyListViewItem>();
+            foreach (string absPathName in array)
+            {
+                File.Delete(absPathName);
+            }
+
+            UpdateListView();
+        }
+
+        private void DeleteFile_Click(object sender, RoutedEventArgs e)
+        {
+            if (MyListView.SelectedIndex >= 0)
+            {
+                string fileName = m_myListViewItems[MyListView.SelectedIndex].FileName;
+                File.Delete(PathName.Text+"\\"+fileName);
+                UpdateListView();
+            }
         }
 
         private void MyListView_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)

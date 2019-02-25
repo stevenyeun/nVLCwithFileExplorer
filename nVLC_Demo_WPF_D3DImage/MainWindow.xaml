@@ -49,16 +49,23 @@
             </st:AutoGrid>
 
 
-            <!--파일탐색-->
-            <st:AutoGrid Rows="20,*" Columns="*" Orientation="Vertical">
+            <!--파일탐색기-->
+            <st:AutoGrid Rows="20,*,25" Columns="*" Orientation="Vertical">
                 <TextBox x:Name="PathName"/>
-                <ListView Name="MyListView">
+                <ListView Name="MyListView" SelectionMode="Single">
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Header="파일이름" DisplayMemberBinding="{Binding Path=FileName}"/>
+                            <GridViewColumn Header="파일이름" Width="150" DisplayMemberBinding="{Binding Path=FileName}"/>
                         </GridView>
                     </ListView.View>
                 </ListView>
+
+                <st:AutoGrid Rows="*" Columns="*,*">
+                    <Button x:Name="DeleteFile" Content="선택 삭제"/>
+                    <Button x:Name="DeleteAllFile" Content="전체 삭제"/>
+                </st:AutoGrid>
+                
+                
             </st:AutoGrid>
 
 
