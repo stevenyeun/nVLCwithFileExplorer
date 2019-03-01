@@ -59,10 +59,19 @@ namespace nVLC_Demo_WPF_D3DImage
             InitializeComponent();
             this.Topmost = true;
 
-            m_factory = new MediaPlayerFactory(true);
+            //MessageBox.Show("1");
+            try
+            {
+                m_factory = new MediaPlayerFactory(true);
+            }
+            catch(Exception e)
+            {
+                MessageBox.Show(e.ToString());
+            }
+
             m_player = m_factory.CreatePlayer<IVideoPlayer>();
             m_videoImage.Initialize(m_player.CustomRendererEx);
-
+           
             m_player.Events.PlayerPositionChanged += new EventHandler<MediaPlayerPositionChanged>(Events_PlayerPositionChanged);
             m_player.Events.TimeChanged += new EventHandler<MediaPlayerTimeChanged>(Events_TimeChanged);
             m_player.Events.MediaEnded += new EventHandler(Events_MediaEnded);
@@ -72,9 +81,11 @@ namespace nVLC_Demo_WPF_D3DImage
 
             DeleteFile.Click += DeleteFile_Click;
             DeleteAllFile.Click += DeleteAllFile_Click;
-            MyListView.MouseDoubleClick += MyListView_MouseDoubleClick;            
+            MyListView.MouseDoubleClick += MyListView_MouseDoubleClick;
+
             UpdateListView();
 
+         
         }
 
         private void DeleteAllFile_Click(object sender, RoutedEventArgs e)
@@ -110,26 +121,29 @@ namespace nVLC_Demo_WPF_D3DImage
         {
             //탐색 할 디렉토리 경로
             string dirPath = ((App)Application.Current).DirPath;
-            PathName.Text = dirPath;
-            //string[] array2 = Directory.GetFiles(@"C:\", "*.BIN");
-            try
+            if( dirPath != null )
             {
-                string[] array = Directory.GetFiles(dirPath, "*.AVI");
-
-                m_myListViewItems = new List<MyListViewItem>();
-                foreach (string absPathName in array)
+                PathName.Text = dirPath;
+                //string[] array2 = Directory.GetFiles(@"C:\", "*.BIN");
+                try
                 {
-                    string name = Path.GetFileName(absPathName);
-                    m_myListViewItems.Add(new MyListViewItem { FileName = name });
+                    string[] array = Directory.GetFiles(dirPath, "*.AVI");
 
-                    //FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(absPathName);
+                    m_myListViewItems = new List<MyListViewItem>();
+                    foreach (string absPathName in array)
+                    {
+                        string name = Path.GetFileName(absPathName);
+                        m_myListViewItems.Add(new MyListViewItem { FileName = name });
+
+                        //FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(absPathName);
+
+                    }
+                    this.MyListView.ItemsSource = m_myListViewItems;
+                }
+                catch (Exception e)
+                {
 
                 }
-                this.MyListView.ItemsSource = m_myListViewItems;
-            }
-            catch (Exception e)
-            {
-
             }
         }
 
