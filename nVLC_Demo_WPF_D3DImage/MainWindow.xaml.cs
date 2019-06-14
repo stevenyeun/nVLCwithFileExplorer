@@ -81,11 +81,17 @@ namespace nVLC_Demo_WPF_D3DImage
 
             DeleteFile.Click += DeleteFile_Click;
             DeleteAllFile.Click += DeleteAllFile_Click;
-            MyListView.MouseDoubleClick += MyListView_MouseDoubleClick;
+            //MyListView.MouseDoubleClick += MyListView_MouseDoubleClick;
+            MyListView.PreviewMouseLeftButtonUp += MyListView_PreviewMouseLeftButtonUp;
 
             UpdateListView();
 
          
+        }
+
+        private void MyListView_PreviewMouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            OpenSelectedFile();
         }
 
         private void DeleteAllFile_Click(object sender, RoutedEventArgs e)
@@ -114,7 +120,7 @@ namespace nVLC_Demo_WPF_D3DImage
 
         private void MyListView_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            OpenSelectedFile();
+           
         }
 
         private void UpdateListView()
