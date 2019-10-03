@@ -315,7 +315,15 @@ namespace nVLC_Demo_WPF_D3DImage
         {
             Task.Factory.StartNew(() =>
                 {
-                    m_player.Stop();
+                    try
+                    {
+                        m_player.Stop();
+                    }
+                    catch(Exception ee)
+                    {
+
+                    }
+                    
                 });
         }
 
