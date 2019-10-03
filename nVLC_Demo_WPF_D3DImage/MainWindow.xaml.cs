@@ -174,7 +174,14 @@ namespace nVLC_Demo_WPF_D3DImage
             slider1.Value = 0;
             label1.Content = "00:00:00";
             label3.Content = "00:00:00";
-            m_videoImage.Clear();
+            try
+            {
+                m_videoImage.Clear();
+            }
+            catch(Exception e)
+            {
+
+            }
         }
 
         void Events_TimeChanged(object sender, MediaPlayerTimeChanged e)
@@ -214,7 +221,15 @@ namespace nVLC_Demo_WPF_D3DImage
         private void button3_Click(object sender, RoutedEventArgs e)
         {
             //재생
-            m_player.Play();
+            try
+            {
+                m_player.Play();
+            }
+            catch(Exception ee)
+            {
+                MessageBox.Show(ee.Message);
+            }
+            
         }
 
         private void OpenSelectedFile()
